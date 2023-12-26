@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <ul>
+      <li><a href="{% url 'home' %}">Главная страница</a></li>
+      {% for point in menu %}
+        {% if not forloop.last %} <li>
+        {% else %}</li> <li class="last">
+        {% endif %}
+          <a href="{% url point.url_name  %}">{{ point.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+    {#<p>{{ menu|join:" | " }}</p>#}
+    <h1>{{ title }}</h1>
+
+    <!-- примеры фильтров -->
+    <!-- {#<p>{{ float|divisibleby:"2" }}</p>#}
+    {#<p>{{ lst|length }}</p>#}
+    {#<p>{{ set }}</p>#}
+    {#<p>{{ dict.key_1 }} {{ dict.key_2 }}</p>#}
+    {#<p>{{ obj.num_1 }}</p>#}
+    
+    {#<p>{{ url }}</p>#}
+    {#<p>{{ "The Main Page"|slugify }}</p> переводит строку в слаг#}
+
+   {#<h1>{{ title|cut:" "|cut:"?" }}</h1> фильтр позволяющий удалять из строки заданные символы#} -->
+
+<!-- forloop - это переменная, которая существует в
+цикле (у нее есть свои атрибуты), last - последняя итерация. С помощью
+этого условия избавляемся от горизонтальной черты в последней записи -->
+
+    <ul>
+      {% for post in posts %}
+      {% if post.is_published %}
+        <li>
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.content }}</p>
+            <p><a href="{% url 'post' post.id %}">Читать пост</a></p>
+            {% if not forloop.last %} 
+            <hr />
+            {% endif %}
+        </li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+    
+</body>
+</html>
