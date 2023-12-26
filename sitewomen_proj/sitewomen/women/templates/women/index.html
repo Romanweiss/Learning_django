@@ -1,4 +1,40 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{title}}</h1>
+
+<nav>
+	<a href="#">Киборг</a>
+	<a href="#">Человек</a>
+	<a href="#">Иной</a>
+</nav>
+
+    <ul>
+      {% for post in posts %}
+      {% if post.is_published %}
+        <li>
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.content }}</p>
+            <p><a href="{% url 'post' post.id %}">Читать пост</a></p>
+            {% if not forloop.last %} 
+            <hr>
+            {% endif %}
+        </li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+<nav>
+	<a href="#">Киборг</a>
+	<a href="#">Человек</a>
+	<a href="#">Иной</a>
+</nav>
+{% endblock %}
+
+
+
+
+
+<!--<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -17,7 +53,7 @@
       {% endfor %}
     </ul>
     {#<p>{{ menu|join:" | " }}</p>#}
-    <h1>{{ title }}</h1>
+    <h1>{{ title }}</h1>-->
 
     <!-- примеры фильтров -->
     <!-- {#<p>{{ float|divisibleby:"2" }}</p>#}
@@ -34,21 +70,3 @@
 <!-- forloop - это переменная, которая существует в
 цикле (у нее есть свои атрибуты), last - последняя итерация. С помощью
 этого условия избавляемся от горизонтальной черты в последней записи -->
-
-    <ul>
-      {% for post in posts %}
-      {% if post.is_published %}
-        <li>
-            <h2>{{ post.title }}</h2>
-            <p>{{ post.content }}</p>
-            <p><a href="{% url 'post' post.id %}">Читать пост</a></p>
-            {% if not forloop.last %} 
-            <hr />
-            {% endif %}
-        </li>
-      {% endif %}
-      {% endfor %}
-    </ul>
-    
-</body>
-</html>
